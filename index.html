@@ -1,0 +1,545 @@
+<br>
+<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML-редактор с iframe</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #editor-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .editor-header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #editor-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #editor-iframe {
+            width: 100%;
+            height: 50%;
+            border: none;
+            margin-top: ;
+        }
+
+        #htmlInput {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .special-char-button {
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .editor-buttons {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .run-button {
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="editor-container">
+    <div class="editor-header">
+        <h1>HTML iframe</h1>
+    </div>
+    <div id="editor-body">
+        <div>
+            <button class="special-char-button" onclick="insertSpecialChar('<div></div>')">&lt;div&gt;&lt;/div&gt;</button>
+            <button class="special-char-button" onclick="insertSpecialChar('<p></p>')">&lt;p&gt;&lt;/p&gt;</button>
+            <button class="special-char-button" onclick="insertSpecialChar('<h1></h1>')">&lt;h1&gt;&lt;/h1&gt;</button>
+            <button class="special-char-button" onclick="insertSpecialChar('<a href="#"></a>')">&lt;a href="#"&gt;&lt;/a&gt;</button>
+            <button class="special-char-button" onclick="insertSpecialChar('<img src="image.jpg" alt="Image">')">&lt;img src="image.jpg" alt="Image"&gt;</button>
+            <button class="special-char-button" onclick="insertSpecialChar('<ul><li></li></ul>')">&lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;</button>
+
+        </div>
+        <textarea id="htmlInput" placeholder="Введите HTML-код с стилями здесь..." rows="15">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter title</title>
+</head>
+<body>
+    <h1>head line</h1>
+    <p><textp>
+</body>
+</html>
+        </textarea>
+        <div class="editor-buttons">
+            <button class="run-button" onclick="updateIframe()">Run</button>
+        </div>
+        <iframe id="editor-iframe" srcdoc="" sandbox="allow-same-origin allow-scripts"></iframe>
+    </div>
+</div>
+
+<script>
+    function insertSpecialChar(char) {
+        var htmlInput = document.getElementById('htmlInput');
+        var cursorPos = htmlInput.selectionStart;
+        var textBefore = htmlInput.value.substring(0, cursorPos);
+        var textAfter = htmlInput.value.substring(cursorPos);
+        htmlInput.value = textBefore + char + textAfter;
+        htmlInput.setSelectionRange(cursorPos + char.length, cursorPos + char.length);
+        updateIframe();
+    }
+
+    function updateIframe() {
+        var code = document.getElementById('htmlInput').value;
+        var iframe = document.getElementById('editor-iframe');
+        iframe.srcdoc = code;
+    }
+</script>
+<style>
+
+  *{
+    box-sizing: border-box;
+  }
+
+  .logo{
+    width: 100%;
+    height: auto;
+  }
+
+  .custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px; 
+    padding: 14px 28px;
+    font-family: 'Staatliches', cursive;
+    font-weight: 500;
+    font-size: 18px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+  }
+
+  .btn-12{
+    position: relative;
+    right: 20px;
+    bottom: 20px;
+    border:none;
+    box-shadow: none;
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    -webkit-perspective: 230px;
+    perspective: 230px;
+  }
+  .btn-12 span {
+    background: rgb(0,172,238);
+  background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+    display: block;
+    position: absolute;
+    width: 130px;
+    height: 40px;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    border-radius: 5px;
+    margin:0;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  .btn-12 span:nth-child(1) {
+    box-shadow:
+     -7px -7px 20px 0px #fff9,
+     -4px -4px 5px 0px #fff9,
+     7px 7px 20px 0px #0002,
+     4px 4px 5px 0px #0001;
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+    -webkit-transform-origin: 50% 50% -20px;
+    -moz-transform-origin: 50% 50% -20px;
+    transform-origin: 50% 50% -20px;
+  }
+  .btn-12 span:nth-child(2) {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-transform-origin: 50% 50% -20px;
+    -moz-transform-origin: 50% 50% -20px;
+    transform-origin: 50% 50% -20px;
+  }
+  .btn-12:hover span:nth-child(1) {
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+  }
+  .btn-12:hover span:nth-child(2) {
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+   color: transparent;
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
+  }
+
+  #main{
+    display: none;
+  }
+
+  #chatroom{
+    display:none;
+  }
+
+  #ifr{
+    display:none;
+  }
+
+  #about{
+    padding:10px;
+    display:none;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  #code{
+    resize:none;
+    outline:none;
+    border: 2px solid;
+    box-shadow: 3px 3px black;
+    border-radius:3px;
+    font-family: 'Boogaloo', cursive;
+  }
+
+  .run{
+    background:linear-gradient(145deg,#6B73FF,#000DFF);
+    border-radius:3px;
+    outline:none;
+    padding:5px 20px;
+    border:none;
+    color:#fff;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   cursor:pointer;
+  }
+
+  .copy{
+    background:linear-gradient(145deg,#5AFF15,#00B712);
+    border-radius:3px;
+    outline:none;
+    padding:5px 20px;
+    border:none;
+    color:#000;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   cursor:pointer;
+  }
+
+  .share{
+    background:linear-gradient(145deg,#852d91,#312a6c);
+    border-radius:3px;
+    outline:none;
+    padding:5px 20px;
+    border:none;
+    color:#fff;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   cursor:pointer;
+  }
+
+  .down{
+    background:linear-gradient(145deg,#DB3445,#F71735);
+    border-radius:3px;
+    outline:none;
+    padding:5px 20px;
+    border:none;
+    color:#fff;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   cursor:pointer;
+  }
+
+  .help{
+    background:#FEE140;
+    border: 1px solid black;
+    outline:none;
+    color:#000;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   cursor:pointer;
+  }
+
+  .about{
+    background:linear-gradient(145deg,#46eeaa,#2cbfc7);
+    border-radius:8px;
+    outline:none;
+    padding:7px 7px;
+    border:none;
+    color:#000;
+   cursor:pointer;
+   font-size:18px;
+  }
+
+  .back_2{
+    background:linear-gradient(145deg,#B91372,#6B0F1A);
+    border-radius:3px;
+    outline:none;
+    padding:5px 15px;
+    border:none;
+    color:#fff;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   cursor:pointer;
+  }
+
+  .dark{
+    background:linear-gradient(145deg,#ffdf40,#ff8359);
+    border-radius:3px;
+    outline:none;
+    padding:5px 20px;
+    border:none;
+    color:#000;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   cursor:pointer;
+   font-weight:bold;
+   letter-spacing:2px;
+  }
+
+
+  #back{
+    background:linear-gradient(145deg,#B91372,#6B0F1A);
+    border-radius:3px;
+    outline:none;
+    padding:5px 20px;
+    border:none;
+    color:#fff;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   cursor:pointer;
+  }
+
+  .input{
+    width:100%;
+    height:6%;
+    outline:none;
+    border: 2px solid;
+    box-shadow: 2px 2px black;
+    border-radius:3px;
+    font-family: 'Boogaloo', cursive;
+  }
+
+  .foot{
+      padding: 1em;
+      background:#000;
+      color: #fff;
+      left: 0;
+      bottom: 0; 
+      position: fixed ;
+      flex-shrink: 0; 
+      width: 100vw;
+      margin-top: 1em;
+      font-size: 15px;
+      font-family: 'Staatliches', cursive;
+  }
+
+  .img_2{
+    width:auto;
+    height:40%;
+  }
+
+
+  #quo{
+   width:100%;
+   padding:15px;
+   background:#f5f5f5;
+   color:#333;
+   margin:20px 0;
+   border-left:4px solid #3da1ff;
+  }
+
+  .icon{
+    font-size: 10px;
+    color:#BABABA;
+    font-weight:bold;
+    text-decoration:none;
+  }
+
+  hr.style-seven { overflow: visible;  padding: 0; border: none; border-top: medium double #333; color: #333; text-align: center; } 
+  hr.style-seven:after { content: ""; display: inline-block; position: relative; top: -0.7em; font-size: 1.5em; padding: 0 0.25em; background: white; }
+
+
+  .chat_r{
+    background:linear-gradient(145deg,#fad7a1,#e96d71);
+    border-radius:3px;
+    outline:none;
+    padding:5px 14px;
+    border:none;
+    color:#000;
+    font-family: 'Staatliches', cursive;
+   text-transform: uppercase;
+   cursor:pointer;
+  }
+
+  #gree{
+    text-align:center;
+    font-size:12;
+    font-family: 'Open Sans', sans-serif;
+  }
+</style>
+  <script>
+    // start Button
+    function start(){	
+    setTimeout(() => {
+    document.getElementById("home").style.display="none";
+    document.getElementById("main").style.display="block";
+    }, 1000);
+    };
+
+    // about button
+    function about(){	document.getElementById("main").style.display="none";
+    document.getElementById("about").style.display="block";
+    }
+
+
+    // Dark Mode Button
+    function dark(){
+      alert("Dark mode will not stop once installed");
+      document.getElementById("body").setAttribute("style",
+      " color:white; background-color:#050505; ");
+      document.getElementById("code").setAttribute("style",
+      "resize:none; outline:none; 	border: 2px solid white; box-shadow: 3px 3px white;	border-radius:3px;font-family: 'Boogaloo', cursive; background-color:#1C1A1C; color:#00FF1A;width:100%;height:50%;");
+
+    document.querySelector("input").setAttribute("style",
+    "width:100%;height:6%;outline:none;border: 2px solid white;box-shadow: 2px 2px white;border-radius:3px;font-family: 'Boogaloo', cursive;background-color:#1C1A1C; color:#00FF1A;");
+
+    document.getElementById("ifr").setAttribute("style",
+    "background-color:white;");
+
+    document.getElementById("quo").setAttribute("style",
+    "width:100%;padding:15px;background:#434851;color:#FFFFFF;margin:20px 0;border-left:4px solid #00F9FF;");
+    }
+
+
+    // chat room button
+    function chatr(){
+      alert("Coming Soon..");
+    }
+
+
+    // about back button
+    function backf(){
+      document.getElementById("about").style.display="none";
+    document.getElementById("main").style.display="block";
+    }
+
+
+
+    // run button
+    function run(){
+      document.getElementById("main").style.display="none";
+      document.getElementById("ifr").style.display="block";
+      var code = document.querySelector("#code").value
+    document.querySelector("#out").srcdoc = code
+    }
+
+
+    // back button
+    function back(){	document.getElementById("ifr").style.display="none";
+    document.getElementById("main").style.display="block";
+    }
+
+
+    // help Button
+    function show(){
+      alert("Main features of this code :\n1). Live output of codes. \n2). Download and Copy Code Buttons  \n3). Live Chat Room\n4). Dark Mode\n5). Share Code Button\n\nThere are many more thing you need to explore so now just go explore and enjoy");
+    }
+
+
+    function myFunction() {
+      var copyText = document.getElementById("code");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999)
+      document.execCommand("copy");
+      alert("Copied the text: " + copyText.value); 
+    }
+
+
+   
+
+
+    // Download button
+      function saveTextAsFile() {   
+            var textToSave = document.getElementById("code").value;     var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});     var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);     var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;       var downloadLink = document.createElement("a");     downloadLink.download = fileNameToSaveAs;     downloadLink.innerHTML = "Download File";     downloadLink.href = textToSaveAsURL;     downloadLink.onclick = destroyClickedElement;     downloadLink.style.display = "none";     document.body.appendChild(downloadLink);       downloadLink.click(); }   function destroyClickedElement(event) {     document.body.removeChild(event.target); }   function loadFileAsText() {     var fileToLoad = document.getElementById("fileToLoad").files[0];       var fileReader = new FileReader();     fileReader.onload = function(fileLoadedEvent)     {         var textFromFileLoaded = fileLoadedEvent.target.result;         document.getElementById("amit").value = textFromFileLoaded;     };     fileReader.readAsText(fileToLoad, "UTF-8"); }
+
+
+  </script>
+</body>
+<h2>
+cyber naveen</h2>
+</html>
+<br>
